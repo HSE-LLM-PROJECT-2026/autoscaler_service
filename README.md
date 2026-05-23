@@ -1,7 +1,5 @@
 # Autoscaler Service
 
-[HSE-LLM-PROJECT-2026/autoscaler_service](https://github.com/HSE-LLM-PROJECT-2026/autoscaler_service)
-
 ## Описание
 
 FastAPI-сервис для управления политиками горизонтального масштабирования LLM-развертываний. В целевой архитектуре он читает метрики, считает желаемое число реплик и обновляет LLMDeployment.
