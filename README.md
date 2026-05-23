@@ -68,16 +68,19 @@ LOG_LEVEL=INFO
 ```
 
 ## Основные API-ручки
-- `GET /health`
-- `GET /livez`
-- `GET /service-info`
-- `GET /policies`
-- `POST /policies`
-- `GET /policies/{policy_id}`
-- `PATCH /policies/{policy_id}`
-- `DELETE /policies/{policy_id}`
-- `GET /events`
-- `POST /tick`
+
+| Метод | Ручка | Кто использует | Назначение |
+|--------|-------|----------------|------------|
+| `GET` | `/health` | Ingress, мониторинг | Проверяет доступность autoscaler service. |
+| `GET` | `/livez` | Kubernetes | Liveness probe контейнера. |
+| `GET` | `/service-info` | Frontend, state facade | Возвращает служебную информацию об autoscaler service. |
+| `GET` | `/autoscaling/policies` | Frontend, state facade | Возвращает активные политики масштабирования. |
+| `POST` | `/autoscaling/policies` | Frontend | Создает политику масштабирования для deployment. |
+| `GET` | `/autoscaling/policies/{deployment_id}` | Frontend, autoscaler loop | Возвращает политику масштабирования конкретного deployment. |
+| `PUT` | `/autoscaling/policies/{deployment_id}` | Frontend | Обновляет метрику, target, min/max replicas и cooldown. |
+| `DELETE` | `/autoscaling/policies/{deployment_id}` | Frontend | Отключает autoscaling для deployment. |
+| `GET` | `/autoscaling/events` | Frontend | Возвращает историю решений масштабирования. |
+| `POST` | `/internal/autoscaling-loop/tick` | Scheduler, Kubernetes CronJob | Один проход autoscaling loop: чтение Prometheus и обновление LLMDeployment replicas. |
 
 ## Сборка и запуск в Docker
 
